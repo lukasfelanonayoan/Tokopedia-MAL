@@ -27,7 +27,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<AnimeList />}></Route>
-            <Route path="detail" element={<AnimeList />}></Route>
+            <Route path="detail" element={<AnimeDetail />}></Route>
           </Routes>
         </BrowserRouter>
       </div>
