@@ -1,53 +1,35 @@
-import React, {Component} from 'react';
-import {gql} from '@apollo/client';
-import { graphql } from '@apollo/client/react/hoc';
+import React from 'react';
+import {
+    useQuery
+} from "@apollo/client";
 
 // Component used
 import CardAnime from '../components/Card-Anime';
 
-const getListAnime = gql`
-    query {
-        Page{
-            media{
-                id,
-                title {
-                    romaji
-                    english
-                    native
-                    userPreferred
-                },
-                description,
-                coverImage {
-                  extraLarge
-                  large
-                  medium
-                  color
-                }
-            }
+// Query GraphQL 
+import { GetAnimeAll } from '../query/Anime-Query';
+
+function AnimeList (){
+    const { loading, data } = useQuery(GetAnimeAll,{
+        variables:{
+            page:1,
+            perPage:10
         }
-    }
-`;
+    });
 
-
-class AnimeList extends Component{
-    render(){
-        // console.log(this.props);
-        let data = this.props.data;
-        let listHtml = 
+    let listHtml = 
+    <>
+        {(!loading)?
+            <CardAnime items = {data.Page.media}></CardAnime>
+            :
+            <>Loading Data . . .</>
+        }
+    </>
+    return (
         <>
-            {(!data.loading)?
-                <CardAnime items = {data.Page.media}></CardAnime>
-                :
-                <>Loading Data . . .</>
-            }
+		   {listHtml}
         </>
-
-        return (
-            <>
-			   {listHtml}
-            </>
-        );
-    }
+    );
 }
 
-export default graphql(getListAnime)(AnimeList);
+export default AnimeList;

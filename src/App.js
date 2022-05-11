@@ -2,6 +2,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  useParams,
 } from "react-router-dom";
 
 // Apollo
@@ -10,6 +11,8 @@ import {
   InMemoryCache,
   ApolloProvider
 } from "@apollo/client";
+
+import Header from "./components/Header";
 
 // pages
 import AnimeList from "./pages/Anime-List";
@@ -25,9 +28,10 @@ function App() {
     <ApolloProvider client={client}>
       <div className="App">
         <BrowserRouter>
+          <Header />
           <Routes>
             <Route path="/" element={<AnimeList />}></Route>
-            <Route path="/anime/:id" element={<AnimeDetail />}></Route>
+            <Route path="/anime/:id" element={<AnimeDetail /> } id={useParams()}></Route>
           </Routes>
         </BrowserRouter>
       </div>
