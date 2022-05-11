@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 
-class Header extends Component{
+class CollectionDetail extends Component{
     render(){
         return (
             <>
-			          hello Header
+			    hello Detail
             </>
         );
     }
 }
 
-export default Header;
+export default CollectionDetail;

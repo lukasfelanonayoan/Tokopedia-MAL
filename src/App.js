@@ -16,7 +16,7 @@ import AnimeList from "./pages/Anime-List";
 import AnimeDetail from "./pages/Anime-Detail";
 
 const client = new ApolloClient({
-  uri: 'https://anilist.co/graphiql',
+  uri: 'https://graphql.anilist.co',
   cache: new InMemoryCache()
 });
 
@@ -27,7 +27,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<AnimeList />}></Route>
-            <Route path="detail" element={<AnimeDetail />}></Route>
+            <Route path="/anime/:id" element={<AnimeDetail />}></Route>
           </Routes>
         </BrowserRouter>
       </div>
