@@ -1,4 +1,5 @@
  /** @jsxImportSource @emotion/react */
+import { useState, useEffect } from "react";
 import { css } from '@emotion/react';
 import {
     useQuery
@@ -9,8 +10,19 @@ import { useParams } from 'react-router-dom';
 // Query GraphQL 
 import { GetDetailAnime } from '../query/Anime-Query';
 
+// Storing Collection
+import { CheckAnimeCollectedById } from '../query/Collection-Query';
+
+// Components
+import FormCollection from "../components/forms/Form-Collection";
+
 function AnimeDetail(){
     const param = useParams();
+    const [clickAdd, setClickAdd] = useState(false);
+    const [clickRemove, setClickRemove] = useState(false);
+    
+    const [collectionFounded, setcollectionFounded] = useState([]);
+
     const { loading, data } = useQuery(GetDetailAnime,{
         variables:{
             id:param.id
@@ -18,6 +30,28 @@ function AnimeDetail(){
     });
 
     let fetchData = (!loading)?data.Media:null;
+
+    useEffect(() => {
+        if(fetchData !== null){
+            // setListCollection(CheckAnimeCollectedById(fetchData.id));
+            setcollectionFounded(CheckAnimeCollectedById(fetchData.id).founded);
+        }
+    }, [fetchData]);
+
+    const refresh = ()=>{
+        console.log("jalan");
+        setcollectionFounded(CheckAnimeCollectedById(fetchData.id).founded);
+    }
+
+    const saveCollection = ()=>{
+        setClickAdd(true);
+        setClickRemove(false);
+    };
+
+    const deleteCollection = () =>{
+        setClickAdd(false);
+        setClickRemove(true);
+    }
 
     let template = 
     <>
@@ -36,6 +70,7 @@ function AnimeDetail(){
                 <div css={css`
                     display:flex;
                     text-align:center;
+                    padding-bottom:0.5rem;
                 `}>
                     <div css={css`
                     width:50%;
@@ -48,6 +83,29 @@ function AnimeDetail(){
                         <div css={css`font-weight:700`}>Rating</div>
                         <div css={css`font-weight:700;font-size:1.5rem;`}>{fetchData.meanScore}</div>
                     </div>
+                </div>
+                {
+                    (collectionFounded.length !== 0)?
+                    <div>
+                        {
+                        (clickRemove)?
+                        <FormCollection type="remove" anime={fetchData}></FormCollection>
+                        :
+                        <button css={css`&:hover {color: lightgray;}cursor:pointer;background:red;border-radius:0.5rem;width:100%;padding:0.5rem;color:white;font-size:1.05rem;font-weight:500;border:0;`} onClick={()=>deleteCollection()}>Remove Collection</button>
+                        }
+                    </div>
+                    :
+                    ""
+                }
+                
+                <div css={css`padding-top:1rem;`}>
+                    {
+                    (clickAdd)?
+                    <FormCollection type="add" refresh={refresh} anime={fetchData}></FormCollection>
+                    // <>sadasda</>
+                    :
+                    <button css={css`&:hover {color: lightgray;}cursor:pointer;background:#03ac0e;border-radius:0.5rem;width:100%;padding:0.5rem;color:white;font-size:1.05rem;font-weight:500;border:0;`} onClick={()=>saveCollection()}>Add Collection</button>
+                    }
                 </div>
             </div>
             <div css={css`
@@ -64,6 +122,14 @@ function AnimeDetail(){
                 margin:0;
                 text-align:justify;
                 `}>{fetchData.description.replaceAll("<br>", "\n")}</p>
+                <h4 css={css`
+                margin:0;
+                padding:0.5rem 0;
+                `}>Genre</h4>
+                <div css={css`display:flex;flex-wrap:wrap;width:100%;`}>
+                    {fetchData.genres.map(item => <div key={item} css={css`padding:0.25rem 0.25rem;`}><div  css={css`padding:0.5rem 0.75rem;border-radius:2rem;border:1px solid #03ac0e;background:lightgray;font-weight:600;`}>{ item }</div></div>)}
+                </div>
+                
             </div>
         </div>
         </div>

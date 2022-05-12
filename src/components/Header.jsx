@@ -3,17 +3,18 @@ import React from 'react';
 import { css } from '@emotion/react'
 import { Link } from 'react-router-dom';
 
-const color = 'white'
+const color = 'lightgray';
 
 function Header(){
     return (
         <>
             <div css={css`
                 padding: 1rem 2rem;
-                background-color: limegreen;
+                background-color: #03ac0e;
                 font-size: 16px;
                 display:flex;
                 justify-content:space-between;
+                color:white;
             `}>
                 <h1 css={css`
                     margin-bottom:0px;
@@ -35,8 +36,8 @@ function Header(){
                         }
                     }
                 `}>
-                    <Link to={"/"} css={css`text-decoration:none;color:black;`}><div>Home</div></Link>
-                    <Link to={"/"} css={css`text-decoration:none;color:black;`}><div>Collection</div></Link>
+                    <Link to={"/"} css={css`text-decoration:none;color:white;`}><div>Home</div></Link>
+                    <Link to={"/"} css={css`text-decoration:none;color:white;`}><div>Collection</div></Link>
                 </div>
             </div>
         </>
