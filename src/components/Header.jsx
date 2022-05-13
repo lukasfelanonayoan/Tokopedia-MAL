@@ -1,6 +1,5 @@
  /** @jsxImportSource @emotion/react */
-import React from 'react';
-import { css } from '@emotion/react'
+import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
 
 const color = 'lightgray';

@@ -5,6 +5,13 @@ export const ShowAllCollection = () => {
     return collection;
 }
 
+export const ShowSelectedCollection = (name) => {
+    var collection = JSON.parse(localStorage.getItem("collection"));
+
+    let checkCollection = collection.find(data => data.name === name);
+    return checkCollection;
+}
+
 export const CheckAnimeCollectedById = (id) => {
     var collection = JSON.parse(localStorage.getItem("collection"));
 

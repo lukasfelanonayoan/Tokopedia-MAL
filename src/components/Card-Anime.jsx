@@ -1,8 +1,6 @@
  /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
+import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
-
-// import { Link } from "react-router-dom";
 
 function CardAnime(props){
     let data = props.items;

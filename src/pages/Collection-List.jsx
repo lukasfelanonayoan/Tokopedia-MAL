@@ -1,26 +1,18 @@
-import React from 'react';
-import {
-    useQuery
-} from "@apollo/client";
-
+import React, { useState } from 'react';
 // Component used
-import CardAnime from '../components/Card-Anime';
+import CardCollection from '../components/Card-Collection';
 
 // Query GraphQL 
-import { GetAnimeAll } from '../query/Anime-Query';
+import { ShowAllCollection } from '../query/Collection-Query';
 
 function CollectionList (){
-    const { loading, data } = useQuery(GetAnimeAll,{
-        variables:{
-            page:1,
-            perPage:10
-        }
-    });
+    let [data] = useState(ShowAllCollection());
+    // console.log(data);
 
     let listHtml = 
     <>
-        {(!loading)?
-            <CardAnime items = {data.Page.media}></CardAnime>
+        {(data)?
+            <CardCollection items = {data}></CardCollection>
             :
             <>Loading Data . . .</>
         }

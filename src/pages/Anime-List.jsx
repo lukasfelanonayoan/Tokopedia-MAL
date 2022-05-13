@@ -10,12 +10,16 @@ import CardAnime from '../components/Card-Anime';
 import { GetAnimeAll } from '../query/Anime-Query';
 
 function AnimeList (){
-    const { loading, data } = useQuery(GetAnimeAll,{
+    let { loading, data } = useQuery(GetAnimeAll,{
         variables:{
             page:1,
             perPage:10
         }
     });
+
+    // const changePage = () =>{
+
+    // }
 
     let listHtml = 
     <>
