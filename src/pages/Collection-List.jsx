@@ -31,7 +31,7 @@ function CollectionList (){
         {(data)?
             <CardCollection items = {data} refresh= {refreshData}></CardCollection>
             :
-            <>Loading Data . . .</>
+            <div css={css`padding:0 2rem; font-size:1.25rem;font-weight:600`}>No Collection</div>
         }
     </>
     return (
