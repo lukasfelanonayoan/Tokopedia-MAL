@@ -7,7 +7,6 @@ import { ShowSelectedCollection } from '../query/Collection-Query';
 function CollectionDetail() {
     let param = useParams();
     let data = ShowSelectedCollection(param.name);
-    console.log(data);
 
     return (
         <div css={css`width:100%;`}>
@@ -64,10 +63,10 @@ function CollectionDetail() {
                                 </div>
                                 <div css={css`padding-top:1rem;display:flex;justify-content:space-between;width:100%;`}>
                                     <div>
-                                        <button>Detail</button>
+                                        <button  css={css`&:hover {color: lightgray;}cursor:pointer;background:teal;border-radius:0.5rem;width:100%;padding:0.5rem;color:white;font-size:1.05rem;font-weight:500;border:0;`}>Detail</button>
                                     </div>
                                     <div>
-                                        <button>Remove</button>
+                                        <button  css={css`&:hover {color: lightgray;}cursor:pointer;background:red;border-radius:0.5rem;width:100%;padding:0.5rem;color:white;font-size:1.05rem;font-weight:500;border:0;`}>Remove</button>
                                     </div>
                                 </div>
                             </div>

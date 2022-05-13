@@ -35,7 +35,7 @@ function FormCollection(props){
                         }
                     </datalist>
                     <div css={css`padding-top:1rem`}>
-                        <button css={css`&:hover {color: lightgray;}cursor:pointer;border-radius:0.5rem;width:100%;padding:0.5rem;font-size:1.05rem;font-weight:500`} type="button" onClick={()=>submit()}>Choose</button>
+                        <button css={css`&:hover {color: lightgray;}background:#03ac0e;cursor:pointer;border-radius:0.5rem;width:100%;padding:0.5rem;font-size:1.05rem;font-weight:500`} type="button" onClick={()=>submit()}>Choose</button>
                     </div>
                 </form>
             </div>

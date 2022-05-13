@@ -4,6 +4,17 @@ import { Link } from 'react-router-dom';
 
 function CardAnime(props){
     let data = props.items;
+    let page = props.pagination;
+    let limit = 2;
+    const changePage = props.changePage;
+
+    let pageHtml = [];
+
+    for(let i=page.currentPage-limit;i<=page.currentPage+limit;i++){
+        if(i>0 && i<=page.lastPage){
+            pageHtml.push(i);
+        }
+    }
 
     return (
         <div css={css`width:100%;`}>
@@ -59,7 +70,14 @@ function CardAnime(props){
                 </div>
                 ))
                 }
-                
+            </div>
+
+            <div css={css`display:flex;justify-content:center;`}>
+                {pageHtml.map(item =>(
+                    <div css={css`padding:0.5rem`} key={item}>
+                        <div css={css`&:hover {color: lightgray; background:#03ac0e;} transition:0.3s all;cursor:pointer;padding:0.5rem 0.75rem;border:2px solid black; border-radius:1rem;`} onClick={() => {changePage(item)}}>{item}</div>
+                    </div>
+                ))}
             </div>
         </div>
     );
