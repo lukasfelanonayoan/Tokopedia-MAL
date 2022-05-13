@@ -15,6 +15,8 @@ function Header(){
                 display:flex;
                 justify-content:space-between;
                 color:white;
+                position:sticky;
+                top:0;
             `}>
                 <h1 css={css`
                     margin-bottom:0px;
@@ -37,7 +39,7 @@ function Header(){
                     }
                 `}>
                     <Link to={"/"} css={css`text-decoration:none;color:white;`}><div>Home</div></Link>
-                    <Link to={"/"} css={css`text-decoration:none;color:white;`}><div>Collection</div></Link>
+                    <Link to={"/collection"} css={css`text-decoration:none;color:white;`}><div>Collection</div></Link>
                 </div>
             </div>
         </>

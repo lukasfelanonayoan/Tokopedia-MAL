@@ -85,6 +85,7 @@ export const RemoveAnimeFromCollection = (name,anime) =>{
     // Collection Exist
     if(checkCollection){
         let tempCollection = [];
+
         collection.forEach(element => {
             var temp = [];
             if(element.name === name){
@@ -93,11 +94,12 @@ export const RemoveAnimeFromCollection = (name,anime) =>{
                         temp.push(item);
                     }
                 })
-                element.anime.push(temp);
+                element.anime = temp;
             }
             tempCollection.push(element);
         });
-        localStorage.setItem("collection", JSON.stringify(collection));
+
+        localStorage.setItem("collection", JSON.stringify(tempCollection));
     }
 }
 

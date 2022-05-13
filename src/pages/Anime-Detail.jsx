@@ -22,6 +22,7 @@ function AnimeDetail(){
     const [clickRemove, setClickRemove] = useState(false);
     
     const [collectionFounded, setcollectionFounded] = useState([]);
+    const [collectionEmpty, setcollectionEmpty] = useState([]);
 
     const { loading, data } = useQuery(GetDetailAnime,{
         variables:{
@@ -35,12 +36,16 @@ function AnimeDetail(){
         if(fetchData !== null){
             // setListCollection(CheckAnimeCollectedById(fetchData.id));
             setcollectionFounded(CheckAnimeCollectedById(fetchData.id).founded);
+            setcollectionEmpty(CheckAnimeCollectedById(fetchData.id).empty);
         }
     }, [fetchData]);
 
     const refresh = ()=>{
-        console.log("jalan");
         setcollectionFounded(CheckAnimeCollectedById(fetchData.id).founded);
+        setcollectionEmpty(CheckAnimeCollectedById(fetchData.id).empty);
+        
+        setClickAdd(false);
+        setClickRemove(false);
     }
 
     const saveCollection = ()=>{
@@ -57,16 +62,20 @@ function AnimeDetail(){
     <>
     {(!loading)?
         <div css={css`
-            padding:1rem 2rem;
+            padding:0 2rem 1rem 2rem;
         `}>
             <h2 css={css`{
             margin-bottom:0;
         }`}>{fetchData.title.romaji} ({fetchData.title.english})</h2>
         <div css={css`
-            display:flex;
+            @media (min-width: 768px) {
+                display:flex;
+            }
         `}>
-            <div>
-                <img src={fetchData.coverImage.large} alt="" />
+            <div css={css`@media (max-width: 767px) {padding-bottom:1rem}`}>
+                <div css={css`@media (max-width: 767px) {display:flex; justify-content:center;}`}>
+                    <img src={fetchData.coverImage.large} alt="" />
+                </div>
                 <div css={css`
                     display:flex;
                     text-align:center;
@@ -89,7 +98,7 @@ function AnimeDetail(){
                     <div>
                         {
                         (clickRemove)?
-                        <FormCollection type="remove" anime={fetchData}></FormCollection>
+                        <FormCollection type="remove" refresh={refresh} anime={fetchData} data={collectionFounded}></FormCollection>
                         :
                         <button css={css`&:hover {color: lightgray;}cursor:pointer;background:red;border-radius:0.5rem;width:100%;padding:0.5rem;color:white;font-size:1.05rem;font-weight:500;border:0;`} onClick={()=>deleteCollection()}>Remove Collection</button>
                         }
@@ -101,15 +110,14 @@ function AnimeDetail(){
                 <div css={css`padding-top:1rem;`}>
                     {
                     (clickAdd)?
-                    <FormCollection type="add" refresh={refresh} anime={fetchData}></FormCollection>
-                    // <>sadasda</>
+                    <FormCollection type="add" refresh={refresh} anime={fetchData} data={collectionEmpty}></FormCollection>
                     :
                     <button css={css`&:hover {color: lightgray;}cursor:pointer;background:#03ac0e;border-radius:0.5rem;width:100%;padding:0.5rem;color:white;font-size:1.05rem;font-weight:500;border:0;`} onClick={()=>saveCollection()}>Add Collection</button>
                     }
                 </div>
             </div>
             <div css={css`
-            padding-left:1.75rem;
+            @media (min-width: 768px) {padding-left:1.75rem;}
             `}>
                 <img css={css`
                 width:100%;
@@ -129,7 +137,19 @@ function AnimeDetail(){
                 <div css={css`display:flex;flex-wrap:wrap;width:100%;`}>
                     {fetchData.genres.map(item => <div key={item} css={css`padding:0.25rem 0.25rem;`}><div  css={css`padding:0.5rem 0.75rem;border-radius:2rem;border:1px solid #03ac0e;background:lightgray;font-weight:600;`}>{ item }</div></div>)}
                 </div>
-                
+                {
+                    (collectionFounded.length!==0)?
+                    <>
+                        <h4 css={css`
+                        margin:0;
+                        padding:0.5rem 0;
+                        `}>Added On Collection</h4>
+                        <div css={css`display:flex;flex-wrap:wrap;width:100%;`}>
+                            {collectionFounded.map(item => <div key={item} css={css`padding:0.25rem 0.25rem;`}><div  css={css`padding:0.5rem 0.75rem;border-radius:2rem;border:1px solid #03ac0e;background:lightgray;font-weight:600;`}>{ item }</div></div>)}
+                        </div>
+                    </>
+                    :""
+                }
             </div>
         </div>
         </div>

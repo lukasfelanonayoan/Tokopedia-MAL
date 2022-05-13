@@ -17,6 +17,8 @@ import Header from "./components/Header";
 // pages
 import AnimeList from "./pages/Anime-List";
 import AnimeDetail from "./pages/Anime-Detail";
+import CollectionList from "./pages/Collection-List";
+import CollectionDetail from "./pages/Collection-Detail";
 
 const client = new ApolloClient({
   uri: 'https://graphql.anilist.co',
@@ -32,6 +34,8 @@ function App() {
           <Routes>
             <Route path="/" element={<AnimeList />}></Route>
             <Route path="/anime/:id" element={<AnimeDetail /> } id={useParams()}></Route>
+            <Route path="/collection" element={<CollectionList />}></Route>
+            <Route path="/collection/:name" element={<CollectionDetail /> } name={useParams()}></Route>
           </Routes>
         </BrowserRouter>
       </div>

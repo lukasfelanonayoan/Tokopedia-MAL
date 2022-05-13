@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-import { CheckAnimeCollectedById,AddAnimeToCollection,RemoveAnimeFromCollection } from '../../query/Collection-Query';
+import { AddAnimeToCollection,RemoveAnimeFromCollection } from '../../query/Collection-Query';
 
 function FormCollection(props){
     let type = props.type;
     let anime = props.anime;
-    let data = type === "add"?CheckAnimeCollectedById(anime.id).empty:CheckAnimeCollectedById(anime.id).founded;
+    let data = props.data;
     
     const refreshData = props.refresh;
     
@@ -26,7 +26,7 @@ function FormCollection(props){
         <>
 		    <div>
                 <form id='collection-form'>
-                    <input list="collection" name="name-collection" css={css`width:90%; padding:0.5rem`}></input>
+                    <input type="text" autoComplete="off" list="collection" name="name-collection" css={css`width:90%; padding:0.5rem`}></input>
                     <datalist id='collection'>
                         {
                         data.map(item => (
