@@ -41,6 +41,7 @@ function AnimeList (){
             page:page,
             perPage:10
         }});
+        window.scroll(0,0)
     }
 
     let listHtml = 
