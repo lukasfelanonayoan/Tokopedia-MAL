@@ -10,6 +10,7 @@ import CardAnime from '../components/Card-Anime';
 import { GetAnimeAll } from '../query/Anime-Query';
 
 function AnimeList (){
+    document.title = "Home Anime";
     let [ keep,setKeep ] = useState();
 
     const [getLazyData] = useLazyQuery(GetAnimeAll, {

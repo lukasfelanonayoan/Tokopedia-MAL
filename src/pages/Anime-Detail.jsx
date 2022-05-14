@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import {
     useQuery
 } from "@apollo/client";
+import { Link } from 'react-router-dom';
 
 import { useParams } from 'react-router-dom';
 
@@ -31,6 +32,8 @@ function AnimeDetail(){
     });
 
     let fetchData = (!loading)?data.Media:null;
+
+    document.title = (!loading)?data.Media.title.romaji:"Detail Anime";
 
     useEffect(() => {
         if(fetchData !== null){
@@ -119,9 +122,14 @@ function AnimeDetail(){
             <div css={css`
             @media (min-width: 768px) {padding-left:1.75rem;}
             `}>
-                <img css={css`
-                width:100%;
-                `} src={fetchData.bannerImage} alt="" />
+                {
+                    (fetchData.bannerImage)?
+                    <img css={css`
+                    width:100%;
+                    `} src={fetchData.bannerImage} alt="" />
+                    :""
+                }
+                
                 <h4 css={css`
                 margin:0;
                 padding:0.5rem 0;
@@ -145,7 +153,7 @@ function AnimeDetail(){
                         padding:0.5rem 0;
                         `}>Added On Collection</h4>
                         <div css={css`display:flex;flex-wrap:wrap;width:100%;`}>
-                            {collectionFounded.map(item => <div key={item} css={css`padding:0.25rem 0.25rem;`}><div  css={css`padding:0.5rem 0.75rem;border-radius:2rem;border:1px solid #03ac0e;background:lightgray;font-weight:600;`}>{ item }</div></div>)}
+                            {collectionFounded.map(item => <div key={item} css={css`padding:0.5rem 0.25rem;`}><Link to={"/collection/" + item} css={css`&:hover{color:white;}padding:0.5rem 0.75rem;border-radius:2rem;border:1px solid #03ac0e;background:lightgray;font-weight:600;text-decoration:none;color:black`}>{ item }</Link></div>)}
                         </div>
                     </>
                     :""

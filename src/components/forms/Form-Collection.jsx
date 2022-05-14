@@ -25,17 +25,17 @@ function FormCollection(props){
     return (
         <>
 		    <div>
-                <form id='collection-form'>
+                <form id='collection-form' onSubmit={()=>submit()}>
                     <input type="text" autoComplete="off" list="collection" name="name-collection" css={css`width:90%; padding:0.5rem`}></input>
                     <datalist id='collection'>
                         {
                         data.map(item => (
-                            <option value={item}></option>
+                            <option key={item} value={item}></option>
                         ))
                         }
                     </datalist>
                     <div css={css`padding-top:1rem`}>
-                        <button css={css`&:hover {color: lightgray;}background:#03ac0e;cursor:pointer;border-radius:0.5rem;width:100%;padding:0.5rem;font-size:1.05rem;font-weight:500`} type="button" onClick={()=>submit()}>Choose</button>
+                        <button css={css`&:hover {color: lightgray;}background:#03ac0e;cursor:pointer;border-radius:0.5rem;width:100%;padding:0.5rem;font-size:1.05rem;font-weight:600;color:white`} type="button" onClick={()=>submit()}>Choose</button>
                     </div>
                 </form>
             </div>

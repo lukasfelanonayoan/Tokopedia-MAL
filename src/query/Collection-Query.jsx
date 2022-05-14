@@ -46,12 +46,31 @@ export const AddCollection = (data) =>{
     // Format Data
     // Object(name, anime)
     // name = String, anime = Array Object
+    // name = unique
 
     var collection = JSON.parse(localStorage.getItem("collection") || "[]");
 
-    // Save New Collection
-    collection.push(data);
-    localStorage.setItem("collection", JSON.stringify(collection));
+    //eslint-disable-next-line
+    var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+    let save = false;
+
+    if(data.name.match(format) ){
+        save = true;
+    }
+
+    if(!save){
+        let checkCollection = collection.find(item => (item.name).toLowerCase() === (data.name).toLowerCase());
+        if(!checkCollection){
+            // Save New Collection
+            collection.push(data);
+            localStorage.setItem("collection", JSON.stringify(collection));
+        }else{
+            alert("Collection Already Exist (Name Must Unique)");
+        }
+    }else{
+        alert("Collection Name doesn’t have special Char");
+    }
 }
 
 export const AddAnimeToCollection = (name,anime) =>{
@@ -110,8 +129,74 @@ export const RemoveAnimeFromCollection = (name,anime) =>{
     }
 }
 
-export const EditCollection = (data) => {
-    // var collection = JSON.parse(localStorage.getItem("collection"));
+export const EditCollection = (old,name) => {
+   
+    var collection = JSON.parse(localStorage.getItem("collection") || "[]");
+
+    //eslint-disable-next-line
+    var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+    let save = false;
+
+    if(name.match(format) ){
+        save = true;
+    }
+
+    if(!save){
+        let checkCollection = collection.find(item => (item.name).toLowerCase() === (name).toLowerCase());
+        if(!checkCollection){
+            // Save New Collection
+            let tempCollection = [];
+            collection.forEach(element => {
+                if(element.name === old){
+                    element.name = name;
+                }
+                tempCollection.push(element);
+            });
+            localStorage.setItem("collection", JSON.stringify(tempCollection));
+        }else{
+            alert("Collection Already Exist (Name Must Unique)");
+        }
+    }else{
+        alert("Collection Name doesn’t have special Char");
+    }
+}
+
+export const EditCollectionStatus = (old,name) => {
+   
+    var collection = JSON.parse(localStorage.getItem("collection") || "[]");
+    let status = false;
+
+    //eslint-disable-next-line
+    var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+    let save = false;
+
+    if(name.match(format) ){
+        save = true;
+    }
+
+    if(!save){
+        let checkCollection = collection.find(item => (item.name).toLowerCase() === (name).toLowerCase());
+        if(!checkCollection){
+            // Save New Collection
+            let tempCollection = [];
+            collection.forEach(element => {
+                if(element.name === old){
+                    element.name = name;
+                }
+                tempCollection.push(element);
+            });
+            localStorage.setItem("collection", JSON.stringify(tempCollection));
+            status = true;
+        }else{
+            alert("Collection Already Exist (Name Must Unique)");
+        }
+    }else{
+        alert("Collection Name doesn’t have special Char");
+    }
+
+    return status;
 }
 
 export const RemoveCollectionById = (id) => {
@@ -119,7 +204,7 @@ export const RemoveCollectionById = (id) => {
     var temp = [];
 
     collection.forEach(element => {
-        if(element.id !== id){
+        if(element.name !== id){
             temp.push(element);
         }
     });
