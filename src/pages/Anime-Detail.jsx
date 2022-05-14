@@ -71,9 +71,13 @@ function AnimeDetail(){
             <h2 css={css`{
             margin-bottom:0;
         }`}>{fetchData.title.romaji}</h2>
+        {
+            (fetchData.title.english)?
             <h4 css={css`{
             margin-bottom:0;
-        }`}>({fetchData.title.english})</h4>
+            }`}>({fetchData.title.english})</h4>
+            :""
+        }
         <div css={css`
             @media (min-width: 768px) {
                 display:flex;
