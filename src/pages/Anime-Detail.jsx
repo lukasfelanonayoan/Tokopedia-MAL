@@ -4,9 +4,10 @@ import { css } from '@emotion/react';
 import {
     useQuery
 } from "@apollo/client";
-import { Link } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
 
-import { useParams } from 'react-router-dom';
+// Animation
+import { animationPopUp } from '../animation/animation';
 
 // Query GraphQL 
 import { GetDetailAnime } from '../query/Anime-Query';
@@ -69,7 +70,10 @@ function AnimeDetail(){
         `}>
             <h2 css={css`{
             margin-bottom:0;
-        }`}>{fetchData.title.romaji} ({fetchData.title.english})</h2>
+        }`}>{fetchData.title.romaji}</h2>
+            <h4 css={css`{
+            margin-bottom:0;
+        }`}>({fetchData.title.english})</h4>
         <div css={css`
             @media (min-width: 768px) {
                 display:flex;
@@ -82,6 +86,7 @@ function AnimeDetail(){
                 <div css={css`
                     display:flex;
                     text-align:center;
+                    padding-top:0.75rem;
                     padding-bottom:0.5rem;
                 `}>
                     <div css={css`
@@ -162,7 +167,7 @@ function AnimeDetail(){
         </div>
         </div>
         :
-        <>Loading Data . . .</>
+        <div css={css`position:fixed;top:0;left:0;animation :${animationPopUp} 0.5s;color:white; font-size:2rem; font-weight:700;width:100%;height:100%;display:flex;justify-content:center;align-items:center; background:rgba(0,0,0,0.5)`}>Loading Data . . .</div>
     }
     </>;
 

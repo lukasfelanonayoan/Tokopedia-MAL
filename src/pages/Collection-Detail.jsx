@@ -7,6 +7,7 @@ import { useState } from 'react';
 import FormConfirmation from '../components/forms/Form-Confirmation';
 import FormAddCollection from '../components/forms/Form-Add-Collection';
 
+// Query localStorage
 import { ShowSelectedCollection } from '../query/Collection-Query';
 
 function CollectionDetail() {
@@ -14,7 +15,7 @@ function CollectionDetail() {
     
     let [name,setName] = useState();
     let [remove, setRemove] = useState(false);
-    let [anime, setAnime] = useState(false);
+    let [anime, setAnime] = useState();
     let [edit, setEdit] = useState(false);
     let [collectionName, setCollectionName ] = useState(param.name);
     let [data,setData] = useState(ShowSelectedCollection(collectionName));
@@ -122,7 +123,7 @@ function CollectionDetail() {
                                             </button>
                                         </div>
                                         <div>
-                                            <button  css={css`&:hover {color: lightgray;}cursor:pointer;background:red;border-radius:0.5rem;width:100%;padding:0.5rem;color:white;font-size:1.05rem;font-weight:500;border:0;`} onClick={()=>{setRemove(true);setAnime(musarrof);setName(data.name)}}>Remove</button>
+                                            <button  css={css`&:hover {color: lightgray;}cursor:pointer;background:red;border-radius:0.5rem;width:100%;padding:0.5rem;color:white;font-size:1.05rem;font-weight:500;border:0;`} onClick={()=>{setRemove(true);setAnime(musarrof);setName(data.name);}}>Remove</button>
                                             
                                         </div>
                                     </div>

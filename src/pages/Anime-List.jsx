@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from 'react';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import { useState, useEffect } from 'react';
 import {
     useQuery,useLazyQuery
 } from "@apollo/client";
+
+// Animation
+import { animationPopUp } from '../animation/animation';
 
 // Component used
 import CardAnime from '../components/Card-Anime';
@@ -43,7 +48,7 @@ function AnimeList (){
         {(keep)?
             <CardAnime items = {keep.Page.media} pagination = {keep.Page.pageInfo} changePage = {changePage}></CardAnime>
             :
-            <>Loading Data . . .</>
+            <div css={css`position:fixed;top:0;left:0;animation :${animationPopUp} 0.5s;color:white; font-size:2rem; font-weight:700;width:100%;height:100%;display:flex;justify-content:center;align-items:center; background:rgba(0,0,0,0.5)`}>Loading Data . . .</div>
         }
     </>
     return (

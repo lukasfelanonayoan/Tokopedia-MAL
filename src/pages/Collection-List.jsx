@@ -6,7 +6,7 @@ import { useState } from 'react';
 import CardCollection from '../components/Card-Collection';
 import FormAddCollection from '../components/forms/Form-Add-Collection';
 
-// Query GraphQL 
+// Query localStorage
 import { ShowAllCollection } from '../query/Collection-Query';
 
 function CollectionList (){

@@ -9,6 +9,7 @@ import FormDeleteCollection from './forms/Form-Delete-Collection';
 import FormAddCollection from '../components/forms/Form-Add-Collection';
 
 function CardCollection(props){
+    let [anime, setAnime] = useState();
     let [remove, setRemove] = useState(false);
     let [removeCollection, setremoveCollection] = useState(false);
     let [name,setName] = useState();
@@ -34,6 +35,12 @@ function CardCollection(props){
             {
                 (removeCollection)?
                 <FormDeleteCollection close={closeForm} name={name}></FormDeleteCollection>
+                :
+                ""
+            }
+            {
+            (remove)?
+                <FormConfirmation close={closeForm} name={name} anime={anime}></FormConfirmation>
                 :
                 ""
             }
@@ -113,13 +120,7 @@ function CardCollection(props){
                                                     </button>
                                                 </div>
                                                 <div>
-                                                    <button  css={css`&:hover {color: lightgray;}cursor:pointer;background:red;border-radius:0.5rem;width:100%;padding:0.5rem;color:white;font-size:1.05rem;font-weight:500;border:0;`} onClick={()=>{setRemove(true)}}>Remove</button>
-                                                    {
-                                                    (remove)?
-                                                        <FormConfirmation close={closeForm} name={collection.name} anime={musarrof}></FormConfirmation>
-                                                        :
-                                                        ""
-                                                    }
+                                                    <button  css={css`&:hover {color: lightgray;}cursor:pointer;background:red;border-radius:0.5rem;width:100%;padding:0.5rem;color:white;font-size:1.05rem;font-weight:500;border:0;`} onClick={()=>{setRemove(true);setAnime(musarrof);setName(collection.name);}}>Remove</button>
                                                 </div>
                                             </div>
                                         </div>
